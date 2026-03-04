@@ -45,4 +45,21 @@ async function sendRegisterUserEmail(userEmail, name) {
   await sendEmail(userEmail, subject, text, html);
 }
 
-module.exports = { sendRegisterUserEmail };
+async function sendTransactionEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Alert";
+  const text = `Hello ${name}, \n\n Your account has been debited with amount ${amount} for transaction to account ${toAccount}. \n\n Best regards,\nThe Bank_Transaction Team`;
+  const html = `<p> Hello ${name},</p> <p>Your account has been debited with amount ${amount} for transaction to account ${toAccount}. <br> Best regards `;
+  await sendEmail(userEmail, subject, text, html);
+}
+async function sendTransactionFailureEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Failed";
+  const text = `Hello ${name}, \n\n Your transaction to account ${toAccount} with amount ${amount} has failed. \n\n Best regards,\nThe Bank_Transaction Team`;
+  const html = `<p> Hello ${name},</p> <p>Your transaction to account ${toAccount} with amount ${amount} has failed. <br> Best regards `;
+  await sendEmail(userEmail, subject, text, html);
+}
+
+module.exports = {
+  sendRegisterUserEmail,
+  sendTransactionEmail,
+  sendTransactionFailureEmail,
+};
